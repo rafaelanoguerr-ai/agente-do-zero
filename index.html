@@ -15,9 +15,9 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --green: #00d084;
-      --green-dark: #00a866;
-      --green-glow: rgba(0, 208, 132, 0.25);
+      --green: #E8784A;
+      --green-dark: #c45e32;
+      --green-glow: rgba(232, 120, 74, 0.25);
       --bg: #0a0a0a;
       --bg2: #111111;
       --bg3: #181818;
@@ -56,7 +56,7 @@
 
     /* ── HERO ── */
     .hero {
-      background: radial-gradient(ellipse at 50% 0%, rgba(0,208,132,0.12) 0%, transparent 70%), var(--bg);
+      background: radial-gradient(ellipse at 50% 0%, rgba(232,120,74,0.12) 0%, transparent 70%), var(--bg);
       text-align: center;
       padding: 72px 20px 56px;
     }
@@ -101,32 +101,8 @@
       box-shadow: 0 0 60px var(--green-glow);
       background: #000;
       aspect-ratio: 16/9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 12px;
-      cursor: pointer;
       position: relative;
     }
-    .vsl-wrap::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(0,208,132,0.05), transparent);
-    }
-    .play-btn {
-      width: 80px; height: 80px;
-      border-radius: 50%;
-      background: var(--green);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 40px var(--green-glow);
-      transition: transform 0.2s;
-      z-index: 1;
-    }
-    .play-btn:hover { transform: scale(1.1); }
-    .play-btn svg { margin-left: 6px; }
-    .vsl-label { color: var(--muted); font-size: 13px; z-index: 1; }
 
     /* ── CTA BUTTON ── */
     .btn-cta {
@@ -390,7 +366,7 @@
 
     /* ── FINAL CTA ── */
     .final-cta {
-      background: radial-gradient(ellipse at 50% 100%, rgba(0,208,132,0.15) 0%, transparent 70%), var(--bg);
+      background: radial-gradient(ellipse at 50% 100%, rgba(232,120,74,0.15) 0%, transparent 70%), var(--bg);
       text-align: center;
       padding: 96px 20px;
     }
@@ -445,7 +421,13 @@
 <!-- HERO -->
 <section class="hero">
   <div class="container">
-    <div class="badge">Novo · Agentes de IA · Método Prático</div>
+    <div class="badge">
+      <!-- Claude logo mark -->
+      <svg width="16" height="16" viewBox="0 0 32 32" fill="none" style="vertical-align:middle;margin-right:6px;" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14 14-6.268 14-14S23.732 2 16 2zm0 4.5c1.38 0 2.5 1.12 2.5 2.5S17.38 11.5 16 11.5 13.5 10.38 13.5 9 14.62 6.5 16 6.5zm-5 8h10c.55 0 1 .45 1 1v7c0 .55-.45 1-1 1H11c-.55 0-1-.45-1-1v-7c0-.55.45-1 1-1z" fill="#E8784A"/>
+      </svg>
+      Powered by Claude · Agentes de IA · Método Prático
+    </div>
 
     <h1>Crie seu primeiro <em>Agente de IA</em><br/>do zero — em menos de 20 minutos</h1>
 
@@ -454,12 +436,17 @@
       Do primeiro comando ao agente rodando sozinho — passo a passo.
     </p>
 
-    <!-- VSL -->
-    <div class="vsl-wrap" onclick="this.innerHTML='<iframe width=\'100%\' height=\'100%\' src=\'https://www.youtube.com/embed/SEU_VIDEO_ID?autoplay=1\' frameborder=\'0\' allow=\'autoplay; encrypted-media\' allowfullscreen></iframe>'; this.style.aspectRatio='16/9'">
-      <div class="play-btn">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg>
-      </div>
-      <p class="vsl-label">Assista antes de comprar — 3 min</p>
+    <!-- Vídeo do produto -->
+    <div class="vsl-wrap">
+      <iframe
+        width="100%" height="100%"
+        src="https://www.youtube.com/embed/yDO21vewdes?rel=0&modestbranding=1"
+        title="Claude Code — Tutorial Completo para Iniciantes"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        style="position:absolute;inset:0;width:100%;height:100%;"
+      ></iframe>
     </div>
 
     <a href="#preco" class="btn-cta">QUERO MEU AGENTE AGORA →</a>
