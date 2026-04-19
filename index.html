@@ -91,18 +91,111 @@
       margin: 0 auto 40px;
     }
 
-    /* ── VSL BOX ── */
-    .vsl-wrap {
-      max-width: 760px;
-      margin: 0 auto 40px;
-      border-radius: 16px;
+    /* ── PREVIEW CAROUSEL ── */
+    .preview-section { margin: 0 auto 48px; max-width: 900px; }
+    .preview-label {
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+    .preview-label strong { color: var(--green); }
+    .carousel {
+      position: relative;
       overflow: hidden;
-      border: 2px solid var(--green);
+      border-radius: 20px;
       box-shadow: 0 0 60px var(--green-glow);
-      background: #000;
-      aspect-ratio: 16/9;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .carousel-slide { min-width: 100%; }
+
+    .browser-frame {
+      background: #1e1e1e;
+      border: 2px solid var(--green);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .browser-bar {
+      background: #2a2a2a;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .browser-dots { display: flex; gap: 6px; }
+    .browser-dots span {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      display: block;
+    }
+    .browser-dots span:nth-child(1) { background: #ff5f57; }
+    .browser-dots span:nth-child(2) { background: #febc2e; }
+    .browser-dots span:nth-child(3) { background: #28c840; }
+    .browser-url-bar {
+      flex: 1;
+      background: #333;
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-size: 11px;
+      color: #aaa;
+      font-family: monospace;
+    }
+    .browser-content {
+      height: 380px;
+      overflow: hidden;
       position: relative;
     }
+    .browser-content iframe {
+      width: 200%;
+      height: 200%;
+      transform: scale(0.5);
+      transform-origin: top left;
+      border: none;
+      pointer-events: none;
+    }
+    .slide-caption {
+      text-align: center;
+      padding: 16px;
+      background: #1e1e1e;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--green);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .carousel-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .carousel-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .carousel-btn:hover { border-color: var(--green); color: var(--green); }
+    .carousel-dots { display: flex; gap: 8px; }
+    .carousel-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .carousel-dot.active { background: var(--green); }
 
     /* ── CTA BUTTON ── */
     .btn-cta {
@@ -429,24 +522,73 @@
       Powered by Claude · Agentes de IA · Método Prático
     </div>
 
-    <h1>Crie seu primeiro <em>Agente de IA</em><br/>do zero — em menos de 20 minutos</h1>
+    <h1>
+      Crie seu primeiro<br/>
+      <em>Agente de IA do Zero</em><br/>
+      em menos de 20 minutos
+    </h1>
 
     <p class="hero-sub">
-      Sem precisar saber programar. Sem mensalidade cara. Sem enrolação.<br/>
-      Do primeiro comando ao agente rodando sozinho — passo a passo.
+      Sem saber programar. Sem mensalidade cara. Sem enrolação.<br/>
+      Do primeiro comando ao agente trabalhando por você — passo a passo.
     </p>
 
-    <!-- Vídeo do produto -->
-    <div class="vsl-wrap">
-      <iframe
-        width="100%" height="100%"
-        src="https://www.youtube.com/embed/yDO21vewdes?rel=0&modestbranding=1"
-        title="Claude Code — Tutorial Completo para Iniciantes"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-        style="position:absolute;inset:0;width:100%;height:100%;"
-      ></iframe>
+    <!-- Carrossel de preview do manual -->
+    <div class="preview-section">
+      <p class="preview-label">👇 Veja o que você recebe — <strong>acesso imediato após a compra</strong></p>
+      <div class="carousel">
+        <div class="carousel-track" id="carouselTrack">
+
+          <div class="carousel-slide">
+            <div class="browser-frame">
+              <div class="browser-bar">
+                <div class="browser-dots"><span></span><span></span><span></span></div>
+                <div class="browser-url-bar">rafaelanoguerr-ai.github.io/guia-claude-code/</div>
+              </div>
+              <div class="browser-content">
+                <iframe src="https://rafaelanoguerr-ai.github.io/guia-claude-code/" scrolling="no" tabindex="-1"></iframe>
+              </div>
+              <div class="slide-caption">📖 Capa do Manual — Do Zero ao Agente</div>
+            </div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="browser-frame">
+              <div class="browser-bar">
+                <div class="browser-dots"><span></span><span></span><span></span></div>
+                <div class="browser-url-bar">rafaelanoguerr-ai.github.io/guia-claude-code/#primeiro-agente</div>
+              </div>
+              <div class="browser-content">
+                <iframe src="https://rafaelanoguerr-ai.github.io/guia-claude-code/#primeiro-agente" scrolling="no" tabindex="-1"></iframe>
+              </div>
+              <div class="slide-caption">🎯 Tutorial Completo — Seu Primeiro Agente</div>
+            </div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="browser-frame">
+              <div class="browser-bar">
+                <div class="browser-dots"><span></span><span></span><span></span></div>
+                <div class="browser-url-bar">rafaelanoguerr-ai.github.io/guia-claude-code/#agents</div>
+              </div>
+              <div class="browser-content">
+                <iframe src="https://rafaelanoguerr-ai.github.io/guia-claude-code/#agents" scrolling="no" tabindex="-1"></iframe>
+              </div>
+              <div class="slide-caption">🤖 Agentes Avançados — Sub-agentes, Hooks e MCP</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="carousel-nav">
+        <button class="carousel-btn" id="prevBtn">‹</button>
+        <div class="carousel-dots">
+          <div class="carousel-dot active" onclick="goTo(0)"></div>
+          <div class="carousel-dot" onclick="goTo(1)"></div>
+          <div class="carousel-dot" onclick="goTo(2)"></div>
+        </div>
+        <button class="carousel-btn" id="nextBtn">›</button>
+      </div>
     </div>
 
     <a href="#preco" class="btn-cta">QUERO MEU AGENTE AGORA →</a>
@@ -740,6 +882,23 @@
 </footer>
 
 <script>
+  // Carousel
+  (function() {
+    var current = 0;
+    var total = 3;
+    var track = document.getElementById('carouselTrack');
+    var dots = document.querySelectorAll('.carousel-dot');
+    function goTo(n) {
+      current = (n + total) % total;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      dots.forEach(function(d,i){ d.classList.toggle('active', i===current); });
+    }
+    window.goTo = goTo;
+    document.getElementById('prevBtn').onclick = function(){ goTo(current-1); };
+    document.getElementById('nextBtn').onclick = function(){ goTo(current+1); };
+    setInterval(function(){ goTo(current+1); }, 4000);
+  })();
+
   // Countdown timer — 2h47m from page load
   (function() {
     var total = (2 * 3600) + (47 * 60);
