@@ -3,928 +3,1227 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agente do Zero — Crie Seu Primeiro Agente IA em 20 Minutos</title>
-  <meta name="description" content="Aprenda a criar um agente de IA do zero, sem precisar saber programar. De brinde, ganhe meu agente de análise comercial pronto para usar." />
-
-  <!-- Fonts -->
+  <title>WEBSCALE. — CRM com IA para Infoprodutores de Alto Ticket</title>
+  <meta name="description" content="O CRM brasileiro com agentes de IA nativos para infoprodutores que querem organizar a sua estrutura comercial. Instagram DM integrado e setup feito por nós." />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="WEBSCALE. — CRM com IA para Infoprodutores de Alto Ticket" />
+  <meta property="og:description" content="Agentes de IA nativos, Instagram DM, multinúmero e setup feito por nós. O CRM brasileiro para infoprodutores que querem organizar a estrutura comercial." />
+  <meta property="og:image" content="https://webscale.com.br/og-image.jpg" />
+  <meta property="og:url" content="https://webscale.com.br" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="WEBSCALE. — CRM com IA para Infoprodutores" />
+  <meta name="twitter:description" content="Agentes de IA nativos, Instagram DM, setup feito por nós. O CRM para infoprodutores que querem organizar a operação comercial." />
+  <!-- Schema.org Product -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "WEBSCALE.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "CRM brasileiro com agentes de IA nativos para infoprodutores que querem organizar a estrutura comercial",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Basic",
+        "price": "597",
+        "priceCurrency": "BRL",
+        "priceSpecification": { "@type": "UnitPriceSpecification", "billingDuration": "P1M" }
+      },
+      {
+        "@type": "Offer",
+        "name": "Pro",
+        "price": "897",
+        "priceCurrency": "BRL",
+        "priceSpecification": { "@type": "UnitPriceSpecification", "billingDuration": "P1M" }
+      },
+      {
+        "@type": "Offer",
+        "name": "Scale",
+        "price": "1200",
+        "priceCurrency": "BRL",
+        "priceSpecification": { "@type": "UnitPriceSpecification", "billingDuration": "P1M" }
+      }
+    ]
+  }
+  </script>
+  <!-- Favicon SVG inline -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23FF7F00'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='900' font-size='14' fill='white'>WS</text></svg>" />
+  <!-- Google Fonts: Plus Jakarta Sans (≈ Gilroy) + Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Analytics placeholder -->
+  <!-- GA4: <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script> -->
+  <!-- Meta Pixel: <script>!function(f,b,e,v,n,t,s)...</script> -->
 
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+    /* ─── TOKENS ─────────────────────────────────────── */
     :root {
-      --green: #E8784A;
-      --green-dark: #c45e32;
-      --green-glow: rgba(232, 120, 74, 0.25);
-      --bg: #0a0a0a;
-      --bg2: #111111;
-      --bg3: #181818;
-      --card: #1a1a1a;
-      --border: rgba(255,255,255,0.08);
-      --text: #f0f0f0;
-      --muted: #888;
-      --yellow: #ffd700;
-      --red: #ff4444;
+      --navy:       #0d1f2d;
+      --navy-mid:   #1a3a52;
+      --blue:       #587799;
+      --blue-light: #92C7FF;
+      --orange:     #FF7F00;
+      --orange-soft:#FFC897;
+      --orange-dark:#cc6500;
+      --white:      #FFFFFF;
+      --gray-50:    #F7F9FC;
+      --gray-100:   #EEF2F7;
+      --gray-200:   #DDE4ED;
+      --gray-400:   #8FA3B8;
+      --gray-600:   #4A6074;
+      --gray-800:   #1E2E3D;
+      --text:       #0d1f2d;
+      --text-muted: #567080;
+      --radius-sm:  8px;
+      --radius-md:  14px;
+      --radius-lg:  20px;
+      --shadow-sm:  0 2px 8px rgba(13,31,45,.08);
+      --shadow-md:  0 8px 32px rgba(13,31,45,.12);
+      --shadow-lg:  0 24px 64px rgba(13,31,45,.18);
+      --font-head:  'Plus Jakarta Sans', sans-serif;
+      --font-body:  'Inter', sans-serif;
+      --max-w:      1160px;
+      --gap:        clamp(40px, 6vw, 80px);
     }
 
-    html { scroll-behavior: smooth; }
+    /* ─── RESET ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font-body); color: var(--text); background: var(--white); -webkit-font-smoothing: antialiased; }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: inherit; border: none; }
+    ul { list-style: none; }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+    /* ─── TYPOGRAPHY ─────────────────────────────────── */
+    .h1 { font-family: var(--font-head); font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.1; letter-spacing: -.02em; }
+    .h2 { font-family: var(--font-head); font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; line-height: 1.2; letter-spacing: -.01em; }
+    .h3 { font-family: var(--font-head); font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 700; line-height: 1.3; }
+    .lead { font-size: clamp(1rem, 1.5vw, 1.2rem); line-height: 1.7; color: var(--text-muted); }
+    .label { font-family: var(--font-head); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--orange); }
 
-    /* ── URGENCY BAR ── */
-    .urgency-bar {
-      background: var(--green);
-      color: #000;
-      text-align: center;
-      padding: 10px 16px;
-      font-weight: 700;
-      font-size: 14px;
-      letter-spacing: 0.3px;
-      position: sticky;
-      top: 0;
-      z-index: 999;
-    }
-    .urgency-bar span { text-decoration: underline; cursor: pointer; }
+    /* ─── LAYOUT ─────────────────────────────────────── */
+    .container { width: 100%; max-width: var(--max-w); margin: 0 auto; padding: 0 clamp(20px, 4vw, 40px); }
+    .section { padding: var(--gap) 0; }
+    .section--dark { background: var(--navy); color: var(--white); }
+    .section--mid  { background: var(--navy-mid); color: var(--white); }
+    .section--tint { background: var(--gray-50); }
+    .section--orange { background: var(--orange); color: var(--white); }
+    .text-center { text-align: center; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .flex-center { display: flex; align-items: center; justify-content: center; }
+    .flex-between { display: flex; align-items: center; justify-content: space-between; }
 
-    /* ── HERO ── */
-    .hero {
-      background: radial-gradient(ellipse at 50% 0%, rgba(232,120,74,0.12) 0%, transparent 70%), var(--bg);
-      text-align: center;
-      padding: 72px 20px 56px;
-    }
+    /* ─── BUTTONS ─────────────────────────────────────── */
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: var(--radius-sm); font-family: var(--font-head); font-weight: 700; font-size: 1rem; transition: all .2s ease; white-space: nowrap; }
+    .btn-primary { background: var(--orange); color: var(--white); box-shadow: 0 4px 20px rgba(255,127,0,.35); }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,127,0,.45); }
+    .btn-primary:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+    .btn-outline { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,.4); }
+    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,.08); }
+    .btn-outline-dark { background: transparent; color: var(--orange); border: 2px solid var(--orange); }
+    .btn-outline-dark:hover { background: var(--orange); color: var(--white); }
+    .btn-lg { padding: 18px 36px; font-size: 1.1rem; border-radius: var(--radius-md); }
+    .btn-sm { padding: 10px 20px; font-size: .9rem; }
 
-    .badge {
-      display: inline-block;
-      background: rgba(0,208,132,0.15);
-      border: 1px solid var(--green);
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: 6px 16px;
-      border-radius: 100px;
-      margin-bottom: 28px;
-    }
+    /* ─── NAV ─────────────────────────────────────────── */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 0; transition: background .3s, box-shadow .3s; }
+    .nav.scrolled { background: rgba(13,31,45,.96); backdrop-filter: blur(12px); box-shadow: 0 2px 20px rgba(0,0,0,.3); }
+    .nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .nav__logo { display: flex; align-items: center; gap: 10px; }
+    .nav__logo-svg { width: 140px; height: auto; }
+    .nav__links { display: flex; align-items: center; gap: 28px; }
+    .nav__links a { font-family: var(--font-head); font-weight: 600; font-size: .9rem; color: rgba(255,255,255,.8); transition: color .2s; }
+    .nav__links a:hover { color: var(--white); }
+    .nav__cta { display: flex; align-items: center; gap: 12px; }
+    .nav__hamburger { display: none; flex-direction: column; gap: 5px; background: none; padding: 4px; }
+    .nav__hamburger span { width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: all .3s; }
 
-    h1 {
-      font-size: clamp(2rem, 5vw, 3.6rem);
-      font-weight: 900;
-      line-height: 1.1;
-      max-width: 860px;
-      margin: 0 auto 20px;
-    }
-    h1 em { color: var(--green); font-style: normal; }
+    /* ─── HERO ────────────────────────────────────────── */
+    .hero { min-height: 100vh; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #1e4060 100%); display: flex; align-items: center; padding-top: 80px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(255,127,0,.08) 0%, transparent 70%); pointer-events: none; }
+    .hero::after  { content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(146,199,255,.06) 0%, transparent 70%); pointer-events: none; }
+    .hero__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; padding: 80px 0; }
+    .hero__badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,127,0,.15); border: 1px solid rgba(255,127,0,.3); border-radius: 100px; padding: 6px 14px; margin-bottom: 24px; }
+    .hero__badge span { font-family: var(--font-head); font-size: .75rem; font-weight: 700; color: var(--orange-soft); letter-spacing: .06em; text-transform: uppercase; }
+    .hero__badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 8px var(--orange); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+    .hero__title { color: var(--white); margin-bottom: 24px; }
+    .hero__title span { color: var(--orange); }
+    .hero__sub { color: rgba(255,255,255,.7); margin-bottom: 36px; max-width: 480px; }
+    .hero__actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .hero__trust { margin-top: 40px; display: flex; align-items: center; gap: 12px; }
+    .hero__trust-avatars { display: flex; }
+    .hero__trust-avatars span { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--navy-mid); background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: .7rem; font-weight: 700; color: white; margin-left: -8px; font-family: var(--font-head); }
+    .hero__trust-avatars span:first-child { margin-left: 0; }
+    .hero__trust p { font-size: .85rem; color: rgba(255,255,255,.6); line-height: 1.4; }
+    .hero__trust p strong { color: var(--white); }
+    .hero__visual { position: relative; }
+    .hero__mockup { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255,255,255,.08); background: #112233; aspect-ratio: 16/10; position: relative; }
+    .hero__mockup-bar { height: 32px; background: #0a1622; display: flex; align-items: center; gap: 6px; padding: 0 14px; }
+    .hero__mockup-bar span { width: 10px; height: 10px; border-radius: 50%; }
+    .hero__mockup-bar span:nth-child(1) { background: #ff5f57; }
+    .hero__mockup-bar span:nth-child(2) { background: #febc2e; }
+    .hero__mockup-bar span:nth-child(3) { background: #28c840; }
+    .hero__mockup-body { padding: 20px; display: grid; grid-template-columns: 200px 1fr; gap: 12px; height: calc(100% - 32px); }
+    .hero__mockup-sidebar { background: #0d1e2c; border-radius: var(--radius-sm); padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .hero__mockup-item { height: 8px; border-radius: 4px; background: rgba(255,255,255,.08); }
+    .hero__mockup-item--active { background: var(--orange); opacity: .7; width: 70%; }
+    .hero__mockup-item--sm { width: 60%; }
+    .hero__mockup-item--md { width: 85%; }
+    .hero__mockup-main { display: flex; flex-direction: column; gap: 12px; }
+    .hero__mockup-header { height: 40px; background: rgba(255,255,255,.04); border-radius: var(--radius-sm); display: flex; align-items: center; gap: 8px; padding: 0 12px; }
+    .hero__mockup-header-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); }
+    .hero__mockup-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; flex: 1; }
+    .hero__mockup-card { background: rgba(255,255,255,.04); border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,.06); padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+    .hero__mockup-card-tag { height: 6px; border-radius: 3px; width: 40%; }
+    .hero__mockup-card-tag--blue  { background: var(--blue-light); opacity: .6; }
+    .hero__mockup-card-tag--orange { background: var(--orange); opacity: .6; }
+    .hero__mockup-card-tag--green { background: #4ade80; opacity: .6; }
+    .hero__mockup-card p { height: 6px; border-radius: 3px; background: rgba(255,255,255,.1); }
+    .hero__mockup-card p:last-child { width: 65%; }
+    .hero__float { position: absolute; background: rgba(13,31,45,.9); border: 1px solid rgba(255,127,0,.3); border-radius: var(--radius-sm); padding: 10px 14px; backdrop-filter: blur(8px); box-shadow: var(--shadow-md); }
+    .hero__float--ai { bottom: -16px; left: -24px; display: flex; align-items: center; gap: 8px; }
+    .hero__float--ai svg { color: var(--orange); }
+    .hero__float--ai p { font-size: .75rem; font-weight: 600; color: var(--white); font-family: var(--font-head); }
+    .hero__float--ai span { font-size: .65rem; color: rgba(255,255,255,.5); display: block; }
+    .hero__float--dm { top: -16px; right: -16px; display: flex; align-items: center; gap: 8px; }
+    .hero__float--dm p { font-size: .75rem; font-weight: 600; color: var(--white); font-family: var(--font-head); }
+    .hero__float--dm span { font-size: .65rem; color: rgba(255,255,255,.5); display: block; }
 
-    .hero-sub {
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      color: #ccc;
-      max-width: 640px;
-      margin: 0 auto 40px;
-    }
+    /* ─── SOCIAL PROOF BAR ──────────────────────────── */
+    .proof-bar { background: var(--gray-50); border-top: 1px solid var(--gray-200); border-bottom: 1px solid var(--gray-200); padding: 28px 0; }
+    .proof-bar__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 32px 48px; }
+    .proof-bar__stat { text-align: center; }
+    .proof-bar__stat strong { display: block; font-family: var(--font-head); font-size: 1.6rem; font-weight: 900; color: var(--navy); line-height: 1; }
+    .proof-bar__stat span { font-size: .8rem; color: var(--text-muted); margin-top: 4px; display: block; }
+    .proof-bar__divider { width: 1px; height: 40px; background: var(--gray-200); }
+    .proof-bar__logos { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; justify-content: center; }
+    .proof-bar__logo { height: 28px; opacity: .4; filter: grayscale(1); transition: opacity .2s; font-family: var(--font-head); font-weight: 800; font-size: .85rem; color: var(--gray-600); letter-spacing: .04em; display: flex; align-items: center; }
+    .proof-bar__logo:hover { opacity: .7; }
 
-    /* ── PREVIEW CAROUSEL ── */
-    .preview-section { margin: 0 auto 48px; max-width: 900px; }
-    .preview-label {
-      text-align: center;
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 20px;
-      letter-spacing: 0.5px;
-    }
-    .preview-label strong { color: var(--green); }
-    .carousel {
-      position: relative;
-      overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 0 60px var(--green-glow);
-    }
-    .carousel-track {
-      display: flex;
-      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
-    }
-    .carousel-slide { min-width: 100%; }
+    /* ─── PAIN ───────────────────────────────────────── */
+    .pain__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 48px; }
+    .pain__card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 28px; position: relative; overflow: hidden; transition: box-shadow .25s, transform .25s; }
+    .pain__card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+    .pain__card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--orange); border-radius: 0 0 0 0; }
+    .pain__icon { width: 44px; height: 44px; border-radius: var(--radius-sm); background: rgba(255,127,0,.08); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--orange); }
+    .pain__card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; font-family: var(--font-head); }
+    .pain__card p { font-size: .92rem; color: var(--text-muted); line-height: 1.6; }
 
-    .browser-frame {
-      background: #1e1e1e;
-      border: 2px solid var(--green);
-      border-radius: 20px;
-      overflow: hidden;
-    }
-    .browser-bar {
-      background: #2a2a2a;
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-    }
-    .browser-dots { display: flex; gap: 6px; }
-    .browser-dots span {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      display: block;
-    }
-    .browser-dots span:nth-child(1) { background: #ff5f57; }
-    .browser-dots span:nth-child(2) { background: #febc2e; }
-    .browser-dots span:nth-child(3) { background: #28c840; }
-    .browser-url-bar {
-      flex: 1;
-      background: #333;
-      border-radius: 6px;
-      padding: 4px 12px;
-      font-size: 11px;
-      color: #aaa;
-      font-family: monospace;
-    }
-    .browser-content {
-      height: 380px;
-      overflow: hidden;
-      position: relative;
-    }
-    .browser-content iframe {
-      width: 200%;
-      height: 200%;
-      transform: scale(0.5);
-      transform-origin: top left;
-      border: none;
-      pointer-events: none;
-    }
-    .slide-caption {
-      text-align: center;
-      padding: 16px;
-      background: #1e1e1e;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--green);
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
+    /* ─── SOLUTION ───────────────────────────────────── */
+    .solution__lead { max-width: 700px; margin: 0 auto 56px; }
+    .solution__highlights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .solution__highlight { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius-md); padding: 32px 24px; text-align: center; transition: background .25s, border-color .25s; }
+    .solution__highlight:hover { background: rgba(255,255,255,.08); border-color: rgba(255,127,0,.3); }
+    .solution__highlight-icon { width: 56px; height: 56px; border-radius: 16px; background: rgba(255,127,0,.15); border: 1px solid rgba(255,127,0,.25); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--orange); }
+    .solution__highlight h3 { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 10px; font-family: var(--font-head); }
+    .solution__highlight p { font-size: .9rem; color: rgba(255,255,255,.6); line-height: 1.6; }
 
-    .carousel-nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 20px;
-    }
-    .carousel-btn {
-      background: var(--card);
-      border: 1px solid var(--border);
-      color: var(--text);
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      font-size: 18px;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .carousel-btn:hover { border-color: var(--green); color: var(--green); }
-    .carousel-dots { display: flex; gap: 8px; }
-    .carousel-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--border);
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .carousel-dot.active { background: var(--green); }
+    /* ─── FEATURES ───────────────────────────────────── */
+    .features__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 48px; }
+    .feature-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 24px; transition: box-shadow .25s, transform .25s, border-color .25s; }
+    .feature-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); border-color: rgba(255,127,0,.3); }
+    .feature-card__icon { width: 48px; height: 48px; border-radius: var(--radius-sm); background: var(--gray-50); border: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--orange); }
+    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; font-family: var(--font-head); }
+    .feature-card p { font-size: .85rem; color: var(--text-muted); line-height: 1.6; }
+    .feature-card__badge { display: inline-block; font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: rgba(255,127,0,.1); color: var(--orange); padding: 3px 8px; border-radius: 100px; margin-top: 12px; }
 
-    /* ── CTA BUTTON ── */
-    .btn-cta {
-      display: inline-block;
-      background: var(--green);
-      color: #000;
-      font-weight: 800;
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
-      padding: 20px 48px;
-      border-radius: 12px;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.15s;
-      box-shadow: 0 8px 32px rgba(0,208,132,0.4);
-      letter-spacing: 0.3px;
-    }
-    .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,208,132,0.55); }
-    .btn-cta:active { transform: translateY(0); }
+    /* ─── HOW IT WORKS ───────────────────────────────── */
+    .how__steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 56px; position: relative; }
+    .how__steps::before { content: ''; position: absolute; top: 32px; left: 10%; right: 10%; height: 2px; background: linear-gradient(90deg, var(--orange) 0%, rgba(255,127,0,.2) 100%); z-index: 0; }
+    .how__step { text-align: center; position: relative; z-index: 1; padding: 0 16px; }
+    .how__step-num { width: 64px; height: 64px; border-radius: 50%; background: var(--orange); color: var(--white); font-family: var(--font-head); font-size: 1.3rem; font-weight: 900; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 0 0 8px rgba(255,127,0,.1); }
+    .how__step h3 { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .how__step p { font-size: .85rem; color: rgba(255,255,255,.6); line-height: 1.6; }
 
-    .cta-sub { font-size: 12px; color: var(--muted); margin-top: 12px; }
+    /* ─── COMPARISON ─────────────────────────────────── */
+    .compare__wrap { overflow-x: auto; margin-top: 48px; border-radius: var(--radius-md); box-shadow: var(--shadow-md); border: 1px solid var(--gray-200); }
+    .compare__table { width: 100%; border-collapse: collapse; font-size: .9rem; white-space: nowrap; }
+    .compare__table th { padding: 18px 20px; font-family: var(--font-head); font-weight: 700; font-size: .85rem; text-align: left; }
+    .compare__table td { padding: 14px 20px; border-top: 1px solid var(--gray-100); text-align: center; }
+    .compare__table td:first-child { text-align: left; font-weight: 500; color: var(--gray-600); white-space: normal; }
+    .compare__table thead tr { background: var(--navy); }
+    .compare__table thead th { color: rgba(255,255,255,.7); }
+    .compare__table thead th:nth-child(2) { background: var(--orange); color: var(--white); border-radius: 0; }
+    .compare__table tbody tr:nth-child(even) { background: var(--gray-50); }
+    .compare__table tbody tr:hover { background: rgba(255,127,0,.04); }
+    .compare__table tbody td:nth-child(2) { background: rgba(255,127,0,.06); font-weight: 600; color: var(--navy); border-left: 1px solid rgba(255,127,0,.2); border-right: 1px solid rgba(255,127,0,.2); }
+    .check { color: #22c55e; font-size: 1.1rem; }
+    .cross { color: #ef4444; font-size: 1rem; }
+    .partial { color: var(--orange); font-size: .8rem; font-weight: 600; }
 
-    /* ── SECTION BASE ── */
-    section { padding: 80px 20px; }
-    .container { max-width: 900px; margin: 0 auto; }
-    .section-label {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--green);
-      margin-bottom: 12px;
-    }
-    h2 {
-      font-size: clamp(1.6rem, 4vw, 2.6rem);
-      font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 20px;
-    }
-    h2 em { color: var(--green); font-style: normal; }
+    /* ─── TESTIMONIALS ───────────────────────────────── */
+    .testi__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+    .testi__card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 28px; display: flex; flex-direction: column; gap: 16px; transition: box-shadow .25s; }
+    .testi__card:hover { box-shadow: var(--shadow-md); }
+    .testi__stars { display: flex; gap: 3px; color: #f59e0b; font-size: 1rem; }
+    .testi__text { font-size: .95rem; line-height: 1.7; color: var(--text); font-style: italic; flex: 1; }
+    .testi__text strong { color: var(--orange); font-style: normal; }
+    .testi__author { display: flex; align-items: center; gap: 12px; padding-top: 16px; border-top: 1px solid var(--gray-100); }
+    .testi__avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--navy)); display: flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 800; font-size: .9rem; color: white; flex-shrink: 0; }
+    .testi__name { font-family: var(--font-head); font-weight: 700; font-size: .9rem; }
+    .testi__role { font-size: .78rem; color: var(--text-muted); }
+    .testi__placeholder { background: rgba(255,127,0,.06); border: 2px dashed rgba(255,127,0,.3); border-radius: var(--radius-md); padding: 28px; text-align: center; color: var(--orange); font-size: .85rem; font-weight: 600; font-family: var(--font-head); display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .testi__placeholder svg { opacity: .5; }
 
-    /* ── PAIN ── */
-    .pain { background: var(--bg2); }
-    .pain-list { list-style: none; margin-top: 32px; display: grid; gap: 16px; }
-    .pain-list li {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 24px;
-      padding-left: 56px;
-      position: relative;
-      font-size: 1rem;
-      color: #ccc;
-    }
-    .pain-list li::before {
-      content: '✗';
-      position: absolute;
-      left: 20px;
-      top: 20px;
-      color: var(--red);
-      font-weight: 700;
-      font-size: 18px;
-    }
+    /* ─── PRICING ────────────────────────────────────── */
+    .pricing__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; align-items: start; }
+    .pricing__card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 32px; transition: box-shadow .25s; }
+    .pricing__card:hover { box-shadow: var(--shadow-lg); }
+    .pricing__card--featured { border: 2px solid var(--orange); position: relative; }
+    .pricing__card--featured::before { content: 'Mais Popular'; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--orange); color: white; font-family: var(--font-head); font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 4px 14px; border-radius: 100px; }
+    .pricing__plan { font-family: var(--font-head); font-size: .75rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+    .pricing__price { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; }
+    .pricing__currency { font-family: var(--font-head); font-weight: 700; font-size: 1.1rem; color: var(--navy); }
+    .pricing__amount { font-family: var(--font-head); font-weight: 900; font-size: 2.8rem; color: var(--navy); line-height: 1; }
+    .pricing__period { font-size: .85rem; color: var(--text-muted); }
+    .pricing__desc { font-size: .88rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
+    .pricing__divider { height: 1px; background: var(--gray-100); margin-bottom: 24px; }
+    .pricing__features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+    .pricing__feature { display: flex; align-items: flex-start; gap: 10px; font-size: .88rem; color: var(--text); line-height: 1.4; }
+    .pricing__feature svg { flex-shrink: 0; margin-top: 2px; color: #22c55e; }
+    .pricing__setup { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); border-radius: var(--radius-lg); padding: 36px; margin-top: 32px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+    .pricing__setup h3 { font-family: var(--font-head); font-size: 1.4rem; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+    .pricing__setup p { color: rgba(255,255,255,.7); font-size: .9rem; line-height: 1.6; }
+    .pricing__setup-price { text-align: center; flex-shrink: 0; }
+    .pricing__setup-price strong { display: block; font-family: var(--font-head); font-size: 2rem; font-weight: 900; color: var(--orange); }
+    .pricing__setup-price span { font-size: .8rem; color: rgba(255,255,255,.5); }
+    .pricing__faq { margin-top: 32px; background: var(--gray-50); border-radius: var(--radius-md); padding: 24px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .pricing__faq-item h4 { font-family: var(--font-head); font-size: .85rem; font-weight: 700; margin-bottom: 4px; }
+    .pricing__faq-item p { font-size: .82rem; color: var(--text-muted); line-height: 1.5; }
 
-    /* ── SOLUTION ── */
-    .solution-intro {
-      background: rgba(0,208,132,0.06);
-      border: 1px solid rgba(0,208,132,0.2);
-      border-radius: 16px;
-      padding: 32px;
-      margin-top: 32px;
-      font-size: 1.1rem;
-      line-height: 1.7;
-      color: #ddd;
-    }
-    .solution-intro strong { color: var(--green); }
+    /* ─── GUARANTEE ──────────────────────────────────── */
+    .guarantee__inner { display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: center; }
+    .guarantee__icon { width: 120px; height: 120px; border-radius: 50%; background: rgba(255,255,255,.15); border: 3px solid rgba(255,255,255,.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .guarantee h2 { font-family: var(--font-head); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 900; color: var(--white); margin-bottom: 12px; }
+    .guarantee p { color: rgba(255,255,255,.85); line-height: 1.7; font-size: 1rem; }
 
-    /* ── WHAT YOU GET ── */
-    .modules { background: var(--bg2); }
-    .module-grid { display: grid; gap: 16px; margin-top: 40px; }
-    @media (min-width: 640px) { .module-grid { grid-template-columns: 1fr 1fr; } }
+    /* ─── FAQ ────────────────────────────────────────── */
+    .faq__list { max-width: 760px; margin: 48px auto 0; display: flex; flex-direction: column; gap: 12px; }
+    .faq__item { border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; }
+    .faq__question { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px; background: var(--white); font-family: var(--font-head); font-weight: 600; font-size: .95rem; color: var(--text); text-align: left; transition: background .2s; }
+    .faq__question:hover { background: var(--gray-50); }
+    .faq__question[aria-expanded="true"] { background: rgba(255,127,0,.04); color: var(--orange); }
+    .faq__icon { width: 20px; height: 20px; flex-shrink: 0; border-radius: 50%; border: 1.5px solid currentColor; display: flex; align-items: center; justify-content: center; transition: transform .3s; }
+    .faq__question[aria-expanded="true"] .faq__icon { transform: rotate(45deg); }
+    .faq__answer { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq__answer-inner { padding: 0 24px 20px; font-size: .92rem; color: var(--text-muted); line-height: 1.7; }
 
-    .module-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
-      transition: border-color 0.2s;
-    }
-    .module-card:hover { border-color: rgba(0,208,132,0.4); }
-    .module-num {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--green);
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-    }
-    .module-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
-    .module-card p { font-size: 0.9rem; color: var(--muted); }
+    /* ─── FINAL CTA ──────────────────────────────────── */
+    .cta-final { background: linear-gradient(135deg, var(--navy) 0%, #1a3a52 100%); overflow: hidden; position: relative; }
+    .cta-final::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 400px; background: radial-gradient(ellipse, rgba(255,127,0,.12) 0%, transparent 70%); pointer-events: none; }
+    .cta-final__inner { text-align: center; position: relative; z-index: 1; }
+    .cta-final h2 { color: var(--white); margin-bottom: 16px; }
+    .cta-final p { color: rgba(255,255,255,.7); margin-bottom: 36px; max-width: 520px; margin-left: auto; margin-right: auto; }
+    .cta-final__actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
-    /* ── RESULTS / CHECK LIST ── */
-    .checklist { list-style: none; display: grid; gap: 14px; margin-top: 32px; }
-    .checklist li {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      font-size: 1rem;
-      color: #ddd;
-    }
-    .checklist li::before {
-      content: '✓';
-      flex-shrink: 0;
-      width: 28px; height: 28px;
-      background: rgba(0,208,132,0.15);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--green);
-      font-weight: 700;
-      font-size: 14px;
-      padding-top: 1px;
-    }
+    /* ─── FOOTER ─────────────────────────────────────── */
+    .footer { background: #060f17; padding: 48px 0 28px; }
+    .footer__top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .footer__brand p { font-size: .85rem; color: rgba(255,255,255,.4); line-height: 1.7; margin-top: 12px; max-width: 260px; }
+    .footer__col h4 { font-family: var(--font-head); font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 14px; }
+    .footer__col a { display: block; font-size: .85rem; color: rgba(255,255,255,.55); margin-bottom: 8px; transition: color .2s; }
+    .footer__col a:hover { color: var(--white); }
+    .footer__bottom { margin-top: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer__bottom p { font-size: .78rem; color: rgba(255,255,255,.25); }
+    .footer__bottom a { color: rgba(255,255,255,.35); font-size: .78rem; }
+    .footer__bottom a:hover { color: rgba(255,255,255,.6); }
 
-    /* ── BONUS ── */
-    .bonus-section { background: var(--bg2); }
-    .bonus-card {
-      background: linear-gradient(135deg, rgba(0,208,132,0.08), rgba(0,208,132,0.02));
-      border: 2px solid var(--green);
-      border-radius: 20px;
-      padding: 40px 36px;
-      margin-top: 40px;
-      position: relative;
-      overflow: hidden;
+    /* ─── ANIMATIONS ──────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+
+    /* ─── SECTION HEADER ──────────────────────────────── */
+    .section-header { text-align: center; margin-bottom: 16px; }
+    .section-header .h2 { margin-top: 8px; margin-bottom: 12px; }
+    .section-header .lead { max-width: 560px; margin: 0 auto; }
+
+    /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .features__grid { grid-template-columns: repeat(2, 1fr); }
+      .footer__top { grid-template-columns: 1fr 1fr; }
     }
-    .bonus-card::before {
-      content: 'BÔNUS EXCLUSIVO';
-      position: absolute;
-      top: 20px; right: -32px;
-      background: var(--green);
-      color: #000;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      padding: 6px 48px;
-      transform: rotate(45deg);
+    @media (max-width: 760px) {
+      .hero__inner { grid-template-columns: 1fr; }
+      .hero__visual { display: none; }
+      .pain__grid { grid-template-columns: 1fr; }
+      .solution__highlights { grid-template-columns: 1fr; }
+      .features__grid { grid-template-columns: 1fr; }
+      .how__steps { grid-template-columns: 1fr 1fr; }
+      .how__steps::before { display: none; }
+      .testi__grid { grid-template-columns: 1fr; }
+      .pricing__grid { grid-template-columns: 1fr; }
+      .pricing__setup { grid-template-columns: 1fr; text-align: center; }
+      .pricing__faq { grid-template-columns: 1fr; }
+      .guarantee__inner { grid-template-columns: 1fr; text-align: center; }
+      .guarantee__icon { margin: 0 auto; }
+      .footer__top { grid-template-columns: 1fr 1fr; }
+      .nav__links { display: none; }
+      .nav__hamburger { display: flex; }
+      .proof-bar__divider { display: none; }
     }
-    .bonus-icon { font-size: 48px; margin-bottom: 16px; }
-    .bonus-card h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; }
-    .bonus-card h3 em { color: var(--green); font-style: normal; }
-    .bonus-card p { font-size: 1rem; color: #ccc; line-height: 1.7; margin-bottom: 20px; }
-    .bonus-value {
-      display: inline-block;
-      background: rgba(255,215,0,0.1);
-      border: 1px solid var(--yellow);
-      color: var(--yellow);
-      font-weight: 700;
-      font-size: 14px;
-      padding: 6px 16px;
-      border-radius: 100px;
+    @media (max-width: 520px) {
+      .how__steps { grid-template-columns: 1fr; }
+      .footer__top { grid-template-columns: 1fr; }
+      .hero__actions { flex-direction: column; }
+      .hero__actions .btn { width: 100%; justify-content: center; }
     }
 
-    /* ── FOR WHO ── */
-    .for-who-grid { display: grid; gap: 14px; margin-top: 32px; }
-    @media (min-width: 560px) { .for-who-grid { grid-template-columns: 1fr 1fr; } }
-    .for-who-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      font-size: 0.95rem;
-      color: #ccc;
-      display: flex; align-items: flex-start; gap: 12px;
-    }
-    .fw-icon { font-size: 24px; flex-shrink: 0; }
-
-    /* ── TESTIMONIALS ── */
-    .testimonials { background: var(--bg2); }
-    .testi-grid { display: grid; gap: 20px; margin-top: 40px; }
-    @media (min-width: 640px) { .testi-grid { grid-template-columns: 1fr 1fr 1fr; } }
-    .testi-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
-    }
-    .stars { color: var(--yellow); font-size: 14px; margin-bottom: 12px; }
-    .testi-text { font-size: 0.9rem; color: #ccc; line-height: 1.6; margin-bottom: 16px; }
-    .testi-author { font-size: 0.85rem; font-weight: 700; color: var(--green); }
-
-    /* ── PRICING ── */
-    .pricing { text-align: center; }
-    .price-box {
-      max-width: 480px;
-      margin: 40px auto 0;
-      background: var(--card);
-      border: 2px solid var(--green);
-      border-radius: 24px;
-      padding: 48px 40px;
-      box-shadow: 0 0 60px var(--green-glow);
-    }
-    .price-original {
-      font-size: 1rem;
-      color: var(--muted);
-      text-decoration: line-through;
-      margin-bottom: 4px;
-    }
-    .price-main {
-      font-size: clamp(3rem, 10vw, 5rem);
-      font-weight: 900;
-      color: var(--green);
-      line-height: 1;
-    }
-    .price-main span { font-size: 0.4em; vertical-align: super; }
-    .price-period { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
-    .price-includes { margin: 28px 0; text-align: left; }
-    .price-includes li {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 0.95rem; padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-      color: #ccc;
-    }
-    .price-includes li:last-child { border-bottom: none; }
-    .price-includes li span { color: var(--green); font-weight: 700; }
-
-    /* ── GUARANTEE ── */
-    .guarantee { background: var(--bg2); }
-    .guarantee-box {
-      max-width: 640px;
-      margin: 0 auto;
-      text-align: center;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 48px 36px;
-    }
-    .guarantee-icon { font-size: 72px; margin-bottom: 20px; }
-    .guarantee-box h2 { margin-bottom: 16px; }
-    .guarantee-box p { color: #ccc; font-size: 1rem; line-height: 1.7; }
-
-    /* ── FAQ ── */
-    .faq-list { margin-top: 40px; display: grid; gap: 12px; max-width: 700px; margin-left: auto; margin-right: auto; }
-    details {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 24px;
-      cursor: pointer;
-    }
-    details[open] { border-color: rgba(0,208,132,0.3); }
-    summary {
-      font-weight: 700;
-      font-size: 1rem;
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-    summary::after { content: '+'; color: var(--green); font-size: 20px; flex-shrink: 0; }
-    details[open] summary::after { content: '−'; }
-    details p { margin-top: 14px; color: #ccc; font-size: 0.95rem; line-height: 1.7; }
-
-    /* ── FINAL CTA ── */
-    .final-cta {
-      background: radial-gradient(ellipse at 50% 100%, rgba(232,120,74,0.15) 0%, transparent 70%), var(--bg);
-      text-align: center;
-      padding: 96px 20px;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      text-align: center;
-      padding: 32px 20px;
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-    footer a { color: var(--muted); }
-
-    /* ── DIVIDER ── */
-    .divider {
-      width: 60px; height: 3px;
-      background: var(--green);
-      border-radius: 2px;
-      margin: 16px 0 24px;
-    }
-
-    /* ── COUNTDOWN ── */
-    .countdown-wrap { margin: 24px auto 0; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-    .countdown-block {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 20px;
-      text-align: center;
-      min-width: 72px;
-    }
-    .countdown-num { font-size: 2rem; font-weight: 900; color: var(--green); line-height: 1; }
-    .countdown-label { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
-
-    /* ── RESPONSIVE TWEAKS ── */
-    @media (max-width: 480px) {
-      .bonus-card { padding: 32px 24px; }
-      .price-box { padding: 36px 24px; }
-    }
+    /* ─── MOBILE NAV ──────────────────────────────────── */
+    .nav__mobile { display: none; position: fixed; inset: 0; background: var(--navy); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 28px; }
+    .nav__mobile.open { display: flex; }
+    .nav__mobile a { font-family: var(--font-head); font-size: 1.4rem; font-weight: 700; color: white; }
+    .nav__mobile-close { position: absolute; top: 20px; right: 20px; background: none; color: white; font-size: 1.8rem; line-height: 1; }
   </style>
 </head>
 <body>
 
-<!-- URGENCY BAR -->
-<div class="urgency-bar">
-  ⚡ Oferta de lançamento — <span onclick="document.getElementById('preco').scrollIntoView({behavior:'smooth'})">R$67 por tempo limitado</span>. Acesso imediato após a compra.
+<!-- ═══ NAV ═══════════════════════════════════════════ -->
+<nav class="nav" id="nav" role="navigation" aria-label="Navegação principal">
+  <div class="container">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo" aria-label="WEBSCALE. — página inicial">
+        <svg class="nav__logo-svg" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <text x="0" y="30" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="28" fill="#FFFFFF" letter-spacing="-1">WEBSCALE</text>
+          <circle cx="171" cy="30" r="3" fill="#FF7F00"/>
+        </svg>
+      </a>
+      <ul class="nav__links" role="list">
+        <li><a href="#funcionalidades">Funcionalidades</a></li>
+        <li><a href="#como-funciona">Como funciona</a></li>
+        <li><a href="#planos">Planos</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a href="#planos" class="btn btn-outline btn-sm" aria-label="Ver planos e preços">Ver planos</a>
+        <a href="https://wa.me/5500000000000?text=Olá!%20Quero%20conhecer%20o%20WEBSCALE." class="btn btn-primary btn-sm" aria-label="Falar com especialista pelo WhatsApp">Falar com especialista</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Abrir menu" aria-expanded="false" id="hamburger">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="nav__mobile" id="mobileNav" role="dialog" aria-modal="true" aria-label="Menu mobile">
+  <button class="nav__mobile-close" id="mobileClose" aria-label="Fechar menu">×</button>
+  <a href="#funcionalidades" class="mobile-link">Funcionalidades</a>
+  <a href="#como-funciona" class="mobile-link">Como funciona</a>
+  <a href="#planos" class="mobile-link">Planos</a>
+  <a href="#faq" class="mobile-link">FAQ</a>
+  <a href="https://wa.me/5500000000000" class="btn btn-primary btn-lg">Falar com especialista</a>
 </div>
 
-<!-- HERO -->
-<section class="hero">
+
+<!-- ═══ HERO ═══════════════════════════════════════════ -->
+<section class="hero" aria-label="Apresentação WEBSCALE.">
   <div class="container">
-    <div class="badge">
-      <!-- Claude logo mark -->
-      <svg width="16" height="16" viewBox="0 0 32 32" fill="none" style="vertical-align:middle;margin-right:6px;" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14 14-6.268 14-14S23.732 2 16 2zm0 4.5c1.38 0 2.5 1.12 2.5 2.5S17.38 11.5 16 11.5 13.5 10.38 13.5 9 14.62 6.5 16 6.5zm-5 8h10c.55 0 1 .45 1 1v7c0 .55-.45 1-1 1H11c-.55 0-1-.45-1-1v-7c0-.55.45-1 1-1z" fill="#E8784A"/>
-      </svg>
-      Powered by Claude · Agentes de IA · Método Prático
-    </div>
-
-    <h1>
-      Crie seu primeiro<br/>
-      <em>Agente de IA do Zero</em><br/>
-      em menos de 20 minutos
-    </h1>
-
-    <p class="hero-sub">
-      Sem saber programar. Sem mensalidade cara. Sem enrolação.<br/>
-      Do primeiro comando ao agente trabalhando por você — passo a passo.
-    </p>
-
-    <!-- Carrossel de preview do manual -->
-    <div class="preview-section">
-      <p class="preview-label">👇 Veja o que você recebe — <strong>acesso imediato após a compra</strong></p>
-      <div class="carousel">
-        <div class="carousel-track" id="carouselTrack">
-
-          <div class="carousel-slide">
-            <div class="browser-frame">
-              <div class="browser-bar">
-                <div class="browser-dots"><span></span><span></span><span></span></div>
-                <div class="browser-url-bar">rafaelanoguerr-ai.github.io/guia-claude-code/</div>
-              </div>
-              <div class="browser-content">
-                <iframe src="https://rafaelanoguerr-ai.github.io/guia-claude-code/" scrolling="no" tabindex="-1"></iframe>
-              </div>
-              <div class="slide-caption">📖 Capa do Manual — Do Zero ao Agente</div>
-            </div>
+    <div class="hero__inner">
+      <div class="hero__content">
+        <div class="hero__badge" role="status">
+          <span class="hero__badge-dot" aria-hidden="true"></span>
+          <span>CRM com IA para infoprodutores</span>
+        </div>
+        <h1 class="h1 hero__title">
+          Organize sua estrutura<br>
+          comercial. Com IA<br>
+          <span>trabalhando por você.</span>
+        </h1>
+        <p class="lead hero__sub">
+          O CRM brasileiro para infoprodutores que querem profissionalizar a operação de vendas — com agentes de IA nativos, Instagram DM integrado e setup feito por nós.
+        </p>
+        <div class="hero__actions">
+          <a href="https://wa.me/5500000000000?text=Quero%20conhecer%20o%20WEBSCALE." class="btn btn-primary btn-lg" aria-label="Falar com especialista pelo WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Falar com especialista
+          </a>
+          <a href="#planos" class="btn btn-outline" aria-label="Ver planos e preços">Ver planos →</a>
+        </div>
+        <div class="hero__trust" aria-label="Prova social">
+          <div class="hero__trust-avatars" aria-hidden="true">
+            <span>RM</span><span>AK</span><span>JP</span><span>LS</span>
           </div>
-
-          <div class="carousel-slide">
-            <div class="browser-frame">
-              <div class="browser-bar">
-                <div class="browser-dots"><span></span><span></span><span></span></div>
-                <div class="browser-url-bar">rafaelanoguerr-ai.github.io/guia-claude-code/#primeiro-agente</div>
-              </div>
-              <div class="browser-content">
-                <iframe src="https://rafaelanoguerr-ai.github.io/guia-claude-code/#primeiro-agente" scrolling="no" tabindex="-1"></iframe>
-              </div>
-              <div class="slide-caption">🎯 Tutorial Completo — Seu Primeiro Agente</div>
-            </div>
-          </div>
-
-          <div class="carousel-slide">
-            <div class="browser-frame">
-              <div class="browser-bar">
-                <div class="browser-dots"><span></span><span></span><span></span></div>
-                <div class="browser-url-bar">rafaelanoguerr-ai.github.io/guia-claude-code/#agents</div>
-              </div>
-              <div class="browser-content">
-                <iframe src="https://rafaelanoguerr-ai.github.io/guia-claude-code/#agents" scrolling="no" tabindex="-1"></iframe>
-              </div>
-              <div class="slide-caption">🤖 Agentes Avançados — Sub-agentes, Hooks e MCP</div>
-            </div>
-          </div>
-
+          <p><strong>Time especialista</strong><br>em operações de infoprodutos.</p>
         </div>
       </div>
-      <div class="carousel-nav">
-        <button class="carousel-btn" id="prevBtn">‹</button>
-        <div class="carousel-dots">
-          <div class="carousel-dot active" onclick="goTo(0)"></div>
-          <div class="carousel-dot" onclick="goTo(1)"></div>
-          <div class="carousel-dot" onclick="goTo(2)"></div>
+
+      <div class="hero__visual" aria-hidden="true">
+        <div class="hero__mockup" role="img" aria-label="Preview do painel WEBSCALE.">
+          <div class="hero__mockup-bar">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="hero__mockup-body">
+            <div class="hero__mockup-sidebar">
+              <div class="hero__mockup-item hero__mockup-item--active"></div>
+              <div class="hero__mockup-item hero__mockup-item--sm"></div>
+              <div class="hero__mockup-item hero__mockup-item--md"></div>
+              <div class="hero__mockup-item"></div>
+              <div class="hero__mockup-item hero__mockup-item--sm"></div>
+              <div style="height:1px;background:rgba(255,255,255,.06);margin:8px 0;"></div>
+              <div class="hero__mockup-item hero__mockup-item--md"></div>
+              <div class="hero__mockup-item"></div>
+            </div>
+            <div class="hero__mockup-main">
+              <div class="hero__mockup-header">
+                <div class="hero__mockup-header-dot"></div>
+                <div style="height:6px;border-radius:3px;background:rgba(255,255,255,.1);width:120px;"></div>
+              </div>
+              <div class="hero__mockup-cards">
+                <div class="hero__mockup-card">
+                  <div class="hero__mockup-card-tag hero__mockup-card-tag--orange"></div>
+                  <p></p><p></p>
+                  <div style="font-size:.6rem;color:rgba(255,127,0,.6);font-weight:700;font-family:var(--font-head);">Qualificado · IA</div>
+                </div>
+                <div class="hero__mockup-card">
+                  <div class="hero__mockup-card-tag hero__mockup-card-tag--blue"></div>
+                  <p></p><p></p>
+                  <div style="font-size:.6rem;color:rgba(146,199,255,.6);font-weight:700;font-family:var(--font-head);">Follow-up</div>
+                </div>
+                <div class="hero__mockup-card">
+                  <div class="hero__mockup-card-tag hero__mockup-card-tag--green"></div>
+                  <p></p><p></p>
+                  <div style="font-size:.6rem;color:rgba(74,222,128,.6);font-weight:700;font-family:var(--font-head);">Fechado ✓</div>
+                </div>
+              </div>
+              <div style="background:rgba(255,127,0,.08);border:1px solid rgba(255,127,0,.2);border-radius:8px;padding:10px;display:flex;align-items:center;gap:8px;">
+                <div style="width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse 2s infinite;"></div>
+                <div style="font-size:.65rem;color:rgba(255,255,255,.6);font-family:var(--font-head);">Agente IA qualificando 3 leads agora...</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <button class="carousel-btn" id="nextBtn">›</button>
+
+        <div class="hero__float hero__float--ai" role="status">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2a2 2 0 012 2v1a7 7 0 11-8 0V4a2 2 0 012-2h2z"/><circle cx="12" cy="12" r="1"/></svg>
+          <div>
+            <p>Agente de IA ativo</p>
+            <span>Respondendo no WhatsApp agora</span>
+          </div>
+        </div>
+
+        <div class="hero__float hero__float--dm" role="status">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          <div>
+            <p>Instagram DM</p>
+            <span>Integrado nativamente</span>
+          </div>
+        </div>
       </div>
     </div>
-
-    <a href="#preco" class="btn-cta">QUERO MEU AGENTE AGORA →</a>
-    <p class="cta-sub">🔒 Pagamento seguro · Acesso imediato · Garantia de 7 dias</p>
   </div>
 </section>
 
-<!-- PAIN -->
-<section class="pain">
-  <div class="container">
-    <p class="section-label">O Problema</p>
-    <div class="divider"></div>
-    <h2>Você sente que a IA está evoluindo rápido demais<br/>e você está <em>ficando para trás?</em></h2>
 
-    <ul class="pain-list">
-      <li>Você ouve falar de "agentes de IA" em todo lugar, mas não sabe nem por onde começar</li>
-      <li>Já tentou tutoriais em inglês e se perdeu nos primeiros 5 minutos</li>
-      <li>Acha que precisa saber programar para usar ferramentas de IA de verdade</li>
-      <li>Fica copiando prompts no ChatGPT, mas sente que não está aproveitando nem 10% do potencial</li>
-      <li>Já perdeu oportunidades por não automatizar tarefas simples que tomam horas do seu dia</li>
+<!-- ═══ PROOF BAR ══════════════════════════════════════ -->
+<section class="proof-bar" aria-label="Números do WEBSCALE.">
+  <div class="container">
+    <div class="proof-bar__inner">
+      <div class="proof-bar__logos reveal reveal-delay-3" aria-label="Empresas que usam WEBSCALE. [logos placeholder]">
+        <div class="proof-bar__logo" title="[Logo cliente 1 — placeholder]">CLIENTE 01</div>
+        <div class="proof-bar__logo" title="[Logo cliente 2 — placeholder]">CLIENTE 02</div>
+        <div class="proof-bar__logo" title="[Logo cliente 3 — placeholder]">CLIENTE 03</div>
+        <div class="proof-bar__logo" title="[Logo cliente 4 — placeholder]">CLIENTE 04</div>
+        <div class="proof-bar__logo" title="[Logo cliente 5 — placeholder]">CLIENTE 05</div>
+        <div class="proof-bar__logo" title="[Logo cliente 6 — placeholder]">CLIENTE 06</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ PAIN ════════════════════════════════════════════ -->
+<section class="section section--tint" id="dores" aria-label="Problemas que o WEBSCALE. resolve">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="label">Você reconhece isso?</p>
+      <h2 class="h2">A operação que deveria escalar<br>está te prendendo no operacional</h2>
+      <p class="lead">Quatro dores reais de quem vende sem o CRM certo.</p>
+    </div>
+    <div class="pain__grid">
+      <div class="pain__card reveal">
+        <div class="pain__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h3>CRM gringo cobrado em dólar</h3>
+        <p>Você paga em USD sem nenhum suporte em português. Quando algo trava às 22h de uma quinta antes do lançamento, a resposta vem de um bot em inglês — dois dias depois.</p>
+      </div>
+      <div class="pain__card reveal reveal-delay-1">
+        <div class="pain__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3>Planilha que virou um caos</h3>
+        <p>Começa organizado. Três semanas depois: colunas sem padrão, duplicatas em todo lugar, ninguém sabe quem é o dono do lead e o follow-up nunca acontece.</p>
+      </div>
+      <div class="pain__card reveal reveal-delay-2">
+        <div class="pain__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <h3>Equipe sem padrão no WhatsApp</h3>
+        <p>Cada pessoa responde de um jeito, no próprio celular. Não tem histórico, não tem cadência, não tem nada. Você só descobre que perdeu aquele cliente quando ele reclama direto na sua DM.</p>
+      </div>
+      <div class="pain__card reveal reveal-delay-3">
+        <div class="pain__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <h3>Sem controle do que acontece na operação</h3>
+        <p>O time atende, negocia e fecha — mas o especialista não enxerga nada. No WEBSCALE., tudo que acontece dentro do CRM fica registrado automaticamente: histórico, etapas, conversas e resultados. Visibilidade total, sem precisar perguntar para ninguém.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SOLUTION ═══════════════════════════════════════ -->
+<section class="section section--dark" id="solucao" aria-label="A solução WEBSCALE.">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="label" style="color:var(--orange-soft);">A solução</p>
+      <h2 class="h2" style="color:var(--white);">Um CRM feito para infoprodutores<br>que querem crescer com estrutura</h2>
+      <p class="lead" style="color:rgba(255,255,255,.65);max-width:640px;margin:0 auto;">O WEBSCALE. centraliza seus canais de venda, coloca agentes de IA para trabalhar enquanto seu time foca no que importa — e o nosso time faz o setup por você. Em dias, não meses.</p>
+    </div>
+    <div class="solution__highlights reveal">
+      <div class="solution__highlight">
+        <div class="solution__highlight-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 012 2v1a7 7 0 11-8 0V4a2 2 0 012-2h2z"/><path d="M9 12h6M12 9v6"/></svg>
+        </div>
+        <h3>Agentes de IA Nativos</h3>
+        <p>Qualificam leads, respondem dúvidas, movem etapas e fazem follow-up automático — direto no CRM, sem Zapier, sem Make, sem gambiarra.</p>
+      </div>
+      <div class="solution__highlight">
+        <div class="solution__highlight-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </div>
+        <h3>Instagram DM Integrado</h3>
+        <p>Receba, responda e gerencie suas DMs do Instagram direto no CRM — sem app separado, sem perder histórico, com agente de IA disponível.</p>
+      </div>
+      <div class="solution__highlight">
+        <div class="solution__highlight-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <h3>Setup Feito por Nós</h3>
+        <p>Nossa equipe conecta seus canais, configura suas automações e entrega o CRM funcionando — você não precisa ser técnico para nada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ FEATURES ═══════════════════════════════════════ -->
+<section class="section" id="funcionalidades" aria-label="Funcionalidades do WEBSCALE.">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="label">O que está incluso</p>
+      <h2 class="h2">Tudo que sua operação precisa,<br>em um lugar só</h2>
+      <p class="lead">Desenvolvido para o infoprodutor brasileiro que quer profissionalizar a operação e não pode perder tempo com integração.</p>
+    </div>
+    <div class="features__grid">
+      <div class="feature-card reveal">
+        <div class="feature-card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 012 2v1a7 7 0 11-8 0V4a2 2 0 012-2h2z"/><path d="M9 12h6M12 9v6"/></svg>
+        </div>
+        <h3>Agentes de IA</h3>
+        <p>Qualificação, follow-up e movimentação de etapas automatizados. Seu CRM trabalha mesmo quando você dorme.</p>
+        <span class="feature-card__badge">Exclusivo</span>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/></svg>
+        </div>
+        <h3>Instagram DM Nativo</h3>
+        <p>Gerencie todas as DMs do Instagram dentro do CRM, com histórico completo e agente de IA respondendo.</p>
+        <span class="feature-card__badge">Exclusivo</span>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Times Separados</h3>
+        <p>Comercial, Financeiro e CS com pipelines, permissões e visões independentes no mesmo CRM.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.12 1.18 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.45-.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+        </div>
+        <h3>Multinúmero WhatsApp</h3>
+        <p>Múltiplos números de WhatsApp Business e pessoais centralizados. Cada atendente no seu número, tudo registrado.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        </div>
+        <h3>Pipelines Ilimitados</h3>
+        <p>Crie funis para cada produto, lançamento ou segmento. Sem limite de pipelines, sem custo adicional.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Integração VOIP</h3>
+        <p>Chamadas telefônicas registradas e atribuídas automaticamente ao lead. Ligação e histórico no mesmo lugar.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 009 9"/></svg>
+        </div>
+        <h3>Automação Visual</h3>
+        <p>Monte fluxos de automação por arrastar e soltar — sem código. Sequências de WhatsApp, email e tarefas automáticas.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>100% em Português</h3>
+        <p>Interface, suporte e cobrança em BRL. Time humano no Brasil, sem bot gringo e sem dólar na fatura.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/><line x1="3" y1="8" x2="7" y2="8"/><line x1="3" y1="11" x2="5" y2="11"/><line x1="3" y1="14" x2="7" y2="14"/></svg>
+        </div>
+        <h3>Dashboard Automático</h3>
+        <p>Tudo que o time faz dentro do CRM fica registrado em tempo real. O especialista enxerga histórico, etapas e resultados sem precisar perguntar para ninguém.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ HOW IT WORKS ═══════════════════════════════════ -->
+<section class="section section--mid" id="como-funciona" aria-label="Como funciona o WEBSCALE.">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="label" style="color:var(--orange-soft);">Do zero ao operacional</p>
+      <h2 class="h2" style="color:var(--white);">Quatro passos para sua operação<br>escalar com o WEBSCALE.</h2>
+    </div>
+    <div class="how__steps">
+      <div class="how__step reveal">
+        <div class="how__step-num" aria-hidden="true">1</div>
+        <h3>Diagnóstico</h3>
+        <p>Mapeamos sua operação atual: canais, volume de leads, time e necessidades específicas do seu negócio.</p>
+      </div>
+      <div class="how__step reveal reveal-delay-1">
+        <div class="how__step-num" aria-hidden="true">2</div>
+        <h3>Setup & Implantação</h3>
+        <p>Nossa equipe conecta WhatsApp, Instagram, VOIP e suas integrações. Você não precisa fazer nada técnico.</p>
+      </div>
+      <div class="how__step reveal reveal-delay-2">
+        <div class="how__step-num" aria-hidden="true">3</div>
+        <h3>Ativação dos Agentes</h3>
+        <p>Configuramos seus agentes de IA com a sua voz e os seus processos. Eles começam a qualificar e fazer follow-up.</p>
+      </div>
+      <div class="how__step reveal reveal-delay-3">
+        <div class="how__step-num" aria-hidden="true">4</div>
+        <h3>Escala</h3>
+        <p>Com tudo funcionando, você foca em lançar, mentorar e fechar. O WEBSCALE. cuida da operação.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- ═══ TESTIMONIALS ════════════════════════════════════ -->
+<section class="section" id="depoimentos" aria-label="Depoimentos de clientes">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="label">Quem já usa</p>
+      <h2 class="h2">Operadores que escalaram<br>com o WEBSCALE.</h2>
+      <p class="lead">Resultados reais de quem migrou para um CRM feito para o seu mercado.</p>
+    </div>
+    <div class="testi__grid">
+      <!-- [DEPOIMENTO REAL — substituir com depoimento coletado] -->
+      <div class="testi__placeholder reveal" role="img" aria-label="Espaço para depoimento real">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <strong>[DEPOIMENTO REAL]</strong>
+        <span>Coletar: mentor/lançador, mencionar resultado específico (ex: "reduzi meu ciclo de vendas de 30 para 12 dias") + nome, produto e ticket médio</span>
+      </div>
+      <!-- [DEPOIMENTO REAL — substituir] -->
+      <div class="testi__card reveal reveal-delay-1">
+        <div class="testi__stars" aria-label="5 estrelas">★★★★★</div>
+        <p class="testi__text">"Antes do WEBSCALE. eu perdia lead todo dia por falta de follow-up. Hoje os agentes de IA fazem isso por mim. <strong>Meu fechamento aumentou 40%</strong> em 60 dias — com o mesmo time."</p>
+        <div class="testi__author">
+          <div class="testi__avatar" aria-hidden="true">RM</div>
+          <div>
+            <p class="testi__name">[Nome do cliente]</p>
+            <p class="testi__role">[Mentor/Lançador — Ticket médio R$ XX.000] · <em style="color:var(--orange);font-size:.72rem;">DEPOIMENTO REAL A COLETAR</em></p>
+          </div>
+        </div>
+      </div>
+      <div class="testi__card reveal reveal-delay-2">
+        <div class="testi__stars" aria-label="5 estrelas">★★★★★</div>
+        <p class="testi__text">"Migrei do Kommo e a diferença é absurda. <strong>Instagram DM, WhatsApp e VOIP no mesmo lugar</strong>, com suporte em português que responde de verdade. Não volto para CRM gringo."</p>
+        <div class="testi__author">
+          <div class="testi__avatar" aria-hidden="true">AK</div>
+          <div>
+            <p class="testi__name">[Nome do cliente]</p>
+            <p class="testi__role">[Head de Tráfego/SDR — Equipe X pessoas] · <em style="color:var(--orange);font-size:.72rem;">DEPOIMENTO REAL A COLETAR</em></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:24px;font-size:.82rem;color:var(--text-muted);">
+      <strong>Nota:</strong> depoimentos marcados com "A COLETAR" são estruturas-guia. Substitua por depoimentos reais antes de publicar. Os demais são representativos do perfil de resultado esperado.
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══ PRICING ══════════════════════════════════════════ -->
+<section class="section section--tint" id="planos" aria-label="Planos e preços do WEBSCALE.">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="label">Planos e preços</p>
+      <h2 class="h2">Escolha o plano certo<br>para a sua operação</h2>
+      <p class="lead">Valores em BRL. Sem cobrança em dólar, sem surpresa na fatura.</p>
+    </div>
+    <div class="pricing__grid">
+      <!-- BASIC -->
+      <div class="pricing__card reveal">
+        <p class="pricing__plan">Basic</p>
+        <div class="pricing__price">
+          <span class="pricing__currency">R$</span>
+          <span class="pricing__amount">597</span>
+          <span class="pricing__period">/mês</span>
+        </div>
+        <p class="pricing__desc">Para quem está estruturando a operação de vendas pela primeira vez.</p>
+        <div class="pricing__divider" aria-hidden="true"></div>
+        <ul class="pricing__features" role="list">
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            1 Pipeline comercial
+          </li>
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Multinúmero WhatsApp
+          </li>
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Times com permissões separadas
+          </li>
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Suporte humano em pt-BR
+          </li>
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Cobrança em BRL
+          </li>
+        </ul>
+        <a href="https://wa.me/5500000000000?text=Quero%20contratar%20o%20plano%20Basic%20do%20WEBSCALE." class="btn btn-outline-dark" style="width:100%;justify-content:center;" aria-label="Contratar plano Basic — R$ 597/mês">Contratar Basic</a>
+      </div>
+
+      <!-- PRO (destaque) -->
+      <div class="pricing__card pricing__card--featured reveal reveal-delay-1">
+        <p class="pricing__plan">Pro</p>
+        <div class="pricing__price">
+          <span class="pricing__currency">R$</span>
+          <span class="pricing__amount">897</span>
+          <span class="pricing__period">/mês</span>
+        </div>
+        <p class="pricing__desc">Para times que já vendem e precisam de IA para escalar sem contratar mais.</p>
+        <div class="pricing__divider" aria-hidden="true"></div>
+        <ul class="pricing__features" role="list">
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <strong>1 Agente de IA incluído</strong>
+          </li>
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Até 3 Pipelines
+          </li>
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Multinúmero WhatsApp
+          </li>
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            VOIP Integrado
+          </li>
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Times com permissões separadas
+          </li>
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Suporte humano em pt-BR
+          </li>
+        </ul>
+        <a href="https://wa.me/5500000000000?text=Quero%20contratar%20o%20plano%20Pro%20do%20WEBSCALE." class="btn btn-primary" style="width:100%;justify-content:center;" aria-label="Contratar plano Pro — R$ 897/mês">Contratar Pro</a>
+      </div>
+
+      <!-- SCALE -->
+      <div class="pricing__card reveal reveal-delay-2">
+        <p class="pricing__plan">Scale</p>
+        <div class="pricing__price">
+          <span class="pricing__currency">R$</span>
+          <span class="pricing__amount">1.200</span>
+          <span class="pricing__period">/mês</span>
+        </div>
+        <p class="pricing__desc">Para operações que precisam de tudo — IA, Instagram DM, pipelines ilimitados e acesso completo.</p>
+        <div class="pricing__divider" aria-hidden="true"></div>
+        <ul class="pricing__features" role="list">
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <strong>1 Agente de IA + acesso completo</strong>
+          </li>
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Pipelines ilimitados
+          </li>
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <strong>Instagram DM Nativo</strong>
+          </li>
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Multinúmero WhatsApp
+          </li>
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            VOIP Integrado
+          </li>
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Times com permissões separadas
+          </li>
+          <li class="pricing__feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Suporte prioritário em pt-BR
+          </li>
+        </ul>
+        <a href="https://wa.me/5500000000000?text=Quero%20contratar%20o%20plano%20Scale%20do%20WEBSCALE." class="btn btn-outline-dark" style="width:100%;justify-content:center;" aria-label="Contratar plano Scale — R$ 1.200/mês">Contratar Scale</a>
+      </div>
+    </div>
+
+    <!-- SETUP -->
+    <div class="pricing__setup reveal" role="complementary" aria-label="Setup de implantação">
+      <div>
+        <h3>Setup Implantação WEBSCALE.</h3>
+        <p>Nossa equipe cuida de tudo: conexões de WhatsApp, Instagram DM, VOIP, integrações e configuração dos agentes de IA. Você recebe o CRM funcionando, sem precisar ser técnico.</p>
+        <p style="margin-top:12px;font-size:.82rem;color:rgba(255,255,255,.45);">Pagamento único · Não recorrente · Prazo: até 7 dias úteis após onboarding</p>
+      </div>
+      <div class="pricing__setup-price">
+        <strong>R$ 2.500</strong>
+        <span>pagamento único</span>
+        <a href="https://wa.me/5500000000000?text=Quero%20contratar%20o%20Setup%20do%20WEBSCALE." class="btn btn-primary" style="margin-top:16px;" aria-label="Contratar Setup — R$ 2.500 pagamento único">Contratar Setup</a>
+      </div>
+    </div>
+
+    <!-- MINI FAQ PAGAMENTO -->
+    <div class="pricing__faq reveal" aria-label="Perguntas frequentes sobre pagamento">
+      <div class="pricing__faq-item">
+        <h4>Como funciona o pagamento?</h4>
+        <p>Via cartão de crédito ou boleto, cobrado mensalmente em BRL. Sem cobrança em dólar.</p>
+      </div>
+      <div class="pricing__faq-item">
+        <h4>Tem fidelidade?</h4>
+        <p>Não. Você pode cancelar a qualquer momento, sem multa e sem burocracia.</p>
+      </div>
+      <div class="pricing__faq-item">
+        <h4>Posso trocar de plano?</h4>
+        <p>Sim, a qualquer momento. O ajuste é proporcional ao período restante do mês.</p>
+      </div>
+      <div class="pricing__faq-item">
+        <h4>O Setup é obrigatório?</h4>
+        <p>Não é obrigatório — mas é altamente recomendado para quem quer começar sem dor de cabeça técnica.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ GUARANTEE ════════════════════════════════════════ -->
+<section class="section section--orange" id="garantia" aria-label="Garantia WEBSCALE.">
+  <div class="container">
+    <div class="guarantee__inner">
+      <div class="guarantee__icon" aria-hidden="true">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <polyline points="9 12 11 14 15 10"/>
+        </svg>
+      </div>
+      <div>
+        <h2>Onboarding garantido<br>ou seu dinheiro de volta.</h2>
+        <p>Você tem 7 dias após o início da implantação para avaliar. Se o nosso time não entregar o CRM funcionando dentro do prazo acordado, devolvemos 100% do valor do Setup — sem burocracia, sem discussão. Porque quem garante resultado não precisa esconder risco.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ FAQ ══════════════════════════════════════════════ -->
+<section class="section" id="faq" aria-label="Perguntas frequentes">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="label">Dúvidas frequentes</p>
+      <h2 class="h2">Tudo que você precisa<br>saber antes de decidir</h2>
+    </div>
+    <ul class="faq__list reveal" role="list">
+      <li class="faq__item">
+        <button class="faq__question" aria-expanded="false" aria-controls="faq-1">
+          Preciso ser técnico para usar o WEBSCALE.?
+          <span class="faq__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__answer" id="faq-1" role="region">
+          <div class="faq__answer-inner">
+            Não. A nossa equipe faz o Setup por você — conexões, integrações, configuração dos agentes. Você começa a usar o CRM funcionando, sem precisar entender de API, webhook ou qualquer configuração técnica.
+          </div>
+        </div>
+      </li>
+      <li class="faq__item">
+        <button class="faq__question" aria-expanded="false" aria-controls="faq-2">
+          Funciona com o meu WhatsApp atual?
+          <span class="faq__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__answer" id="faq-2" role="region">
+          <div class="faq__answer-inner">
+            Sim. Conectamos tanto WhatsApp Business API quanto números pessoais (via QR Code). Múltiplos números no mesmo CRM, cada atendente no seu acesso — tudo centralizado e com histórico completo.
+          </div>
+        </div>
+      </li>
+      <li class="faq__item">
+        <button class="faq__question" aria-expanded="false" aria-controls="faq-3">
+          Os agentes de IA respondem com a minha voz?
+          <span class="faq__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__answer" id="faq-3" role="region">
+          <div class="faq__answer-inner">
+            Sim. Treinamos os agentes com o seu tom, seus processos e as perguntas mais frequentes do seu negócio. Eles respondem como uma extensão do seu time — não como um bot genérico. Durante o setup, fazemos esse processo de customização junto com você.
+          </div>
+        </div>
+      </li>
+      <li class="faq__item">
+        <button class="faq__question" aria-expanded="false" aria-controls="faq-4">
+          E se eu já uso Kommo, RD Station ou Pipedrive?
+          <span class="faq__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__answer" id="faq-4" role="region">
+          <div class="faq__answer-inner">
+            Nossa equipe cuida da migração dos seus dados e histórico de leads. Você não precisa começar do zero. O processo de migração é mapeado no diagnóstico inicial e executado durante o Setup.
+          </div>
+        </div>
+      </li>
+      <li class="faq__item">
+        <button class="faq__question" aria-expanded="false" aria-controls="faq-5">
+          Tem fidelidade ou contrato mínimo?
+          <span class="faq__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__answer" id="faq-5" role="region">
+          <div class="faq__answer-inner">
+            Não. Os planos mensais não têm fidelidade. Você cancela quando quiser, sem multa. O Setup é um pagamento único e não está vinculado a um período mínimo de assinatura.
+          </div>
+        </div>
+      </li>
+      <li class="faq__item">
+        <button class="faq__question" aria-expanded="false" aria-controls="faq-6">
+          O Instagram DM funciona com qualquer conta?
+          <span class="faq__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__answer" id="faq-6" role="region">
+          <div class="faq__answer-inner">
+            Funciona com contas profissionais do Instagram (perfil comercial ou de criador). A integração é via API oficial do Meta, garantindo estabilidade e sem risco de banimento da conta.
+          </div>
+        </div>
+      </li>
+      <li class="faq__item">
+        <button class="faq__question" aria-expanded="false" aria-controls="faq-7">
+          Quantos usuários posso ter no meu plano?
+          <span class="faq__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__answer" id="faq-7" role="region">
+          <div class="faq__answer-inner">
+            O modelo de cobrança do WEBSCALE. é por plano, não por usuário. Isso significa que seu time pode crescer sem que sua fatura mude — diferente dos CRMs tradicionais que cobram por seat. Consulte os limites específicos do seu plano com nosso time.
+          </div>
+        </div>
+      </li>
+      <li class="faq__item">
+        <button class="faq__question" aria-expanded="false" aria-controls="faq-8">
+          O VOIP funciona com qualquer operadora?
+          <span class="faq__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__answer" id="faq-8" role="region">
+          <div class="faq__answer-inner">
+            Sim, a integração VOIP é compatível com as principais soluções de telefonia IP do mercado brasileiro. Durante o setup, identificamos o melhor provedor para a sua operação e fazemos a conexão.
+          </div>
+        </div>
+      </li>
+      <li class="faq__item">
+        <button class="faq__question" aria-expanded="false" aria-controls="faq-9">
+          Os meus dados ficam seguros?
+          <span class="faq__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__answer" id="faq-9" role="region">
+          <div class="faq__answer-inner">
+            Sim. Todos os dados são armazenados em servidores no Brasil, com criptografia em trânsito e em repouso. O WEBSCALE. segue as diretrizes da LGPD (Lei Geral de Proteção de Dados).
+          </div>
+        </div>
+      </li>
+      <li class="faq__item">
+        <button class="faq__question" aria-expanded="false" aria-controls="faq-10">
+          Como funciona o suporte?
+          <span class="faq__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__answer" id="faq-10" role="region">
+          <div class="faq__answer-inner">
+            Suporte humano via WhatsApp em horário comercial (seg-sex, 9h–18h). Sem bot gringo, sem ticket com SLA de 72h. Planos Scale têm suporte prioritário com tempo de resposta reduzido.
+          </div>
+        </div>
+      </li>
     </ul>
   </div>
 </section>
 
-<!-- SOLUTION -->
-<section>
+
+<!-- ═══ CTA FINAL ════════════════════════════════════════ -->
+<section class="section cta-final" aria-label="Chamada para ação final">
   <div class="container">
-    <p class="section-label">A Solução</p>
-    <div class="divider"></div>
-    <h2>Apresento o <em>Agente do Zero</em></h2>
-
-    <div class="solution-intro">
-      Um guia prático e direto ao ponto que te leva da instalação ao seu primeiro agente funcionando — sem enrolação, sem jargão técnico desnecessário, em português.<br/><br/>
-      Você vai aprender a usar o <strong>Claude Code</strong>, a ferramenta mais poderosa de automação com IA do mercado, para criar agentes que <strong>trabalham por você enquanto você faz outra coisa</strong>.
-    </div>
-
-    <ul class="checklist" style="margin-top:32px">
-      <li>Agentes que organizam arquivos, buscam informações e criam documentos automaticamente</li>
-      <li>Automações que rodam em loop sem você precisar dar um único comando</li>
-      <li>Sub-agentes que fazem tarefas em paralelo — como ter uma equipe de IAs trabalhando para você</li>
-      <li>Memória persistente: seu agente lembra de tudo entre as sessões</li>
-    </ul>
-  </div>
-</section>
-
-<!-- MODULES -->
-<section class="modules">
-  <div class="container">
-    <p class="section-label">O que você vai aprender</p>
-    <div class="divider"></div>
-    <h2>8 módulos. Do <em>zero ao agente</em> rodando.</h2>
-
-    <div class="module-grid">
-      <div class="module-card">
-        <div class="module-num">MÓDULO 01</div>
-        <h3>Primeiros Passos</h3>
-        <p>O que é Claude Code, como instalar e criar sua conta. Pronto para usar em minutos.</p>
-      </div>
-      <div class="module-card">
-        <div class="module-num">MÓDULO 02</div>
-        <h3>Arquitetura do Agente</h3>
-        <p>Entenda os arquivos CLAUDE.md e settings.json — a "alma" do seu agente.</p>
-      </div>
-      <div class="module-card">
-        <div class="module-num">MÓDULO 03</div>
-        <h3>Comandos que Importam</h3>
-        <p>Os comandos que você vai usar todo dia — sem decorar nada.</p>
-      </div>
-      <div class="module-card">
-        <div class="module-num">MÓDULO 04</div>
-        <h3>Seu Primeiro Agente</h3>
-        <p>Tutorial passo a passo: crie um agente que organiza sua pasta de Downloads sozinho.</p>
-      </div>
-      <div class="module-card">
-        <div class="module-num">MÓDULO 05</div>
-        <h3>Agentes Avançados</h3>
-        <p>Modo headless, sub-agentes, hooks e ferramentas MCP para automações poderosas.</p>
-      </div>
-      <div class="module-card">
-        <div class="module-num">MÓDULO 06</div>
-        <h3>Gestão de Contexto</h3>
-        <p>Como monitorar e otimizar o uso de tokens para gastar menos de R$1 por sessão.</p>
-      </div>
-      <div class="module-card">
-        <div class="module-num">MÓDULO 07</div>
-        <h3>Padrões de Design</h3>
-        <p>4 arquiteturas prontas: agente único, orquestrador, pipeline e loop auto-melhorável.</p>
-      </div>
-      <div class="module-card">
-        <div class="module-num">MÓDULO 08</div>
-        <h3>Troubleshooting</h3>
-        <p>Erros comuns e como resolver — mais glossário completo para consultar sempre.</p>
+    <div class="cta-final__inner">
+      <p class="label" style="color:var(--orange-soft);">Pronto para escalar?</p>
+      <h2 class="h2">Sua operação merece<br>um CRM feito para ela.</h2>
+      <p class="lead" style="color:rgba(255,255,255,.7);">Fale com um especialista agora e descubra qual plano faz sentido para o seu momento — sem pressão, sem pitch genérico.</p>
+      <div class="cta-final__actions">
+        <a href="https://wa.me/5500000000000?text=Quero%20conhecer%20o%20WEBSCALE." class="btn btn-primary btn-lg" aria-label="Falar com especialista pelo WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Falar com especialista
+        </a>
+        <a href="#planos" class="btn btn-outline btn-lg" aria-label="Ver planos e preços">Ver planos →</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- BONUS -->
-<section>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════ -->
+<footer class="footer" aria-label="Rodapé WEBSCALE.">
   <div class="container">
-    <p class="section-label">Bônus Exclusivo</p>
-    <div class="divider"></div>
-    <h2>De presente, você leva<br/>meu <em>Agente de Análise Comercial</em></h2>
-
-    <div class="bonus-card">
-      <div class="bonus-icon">🤖</div>
-      <h3>Agente de <em>Análise Comercial</em> — Pronto para Usar</h3>
-      <p>
-        Esse é o agente que eu uso no meu próprio negócio. Ele analisa propostas, oportunidades de venda, clientes e métricas comerciais — e te entrega um diagnóstico completo em segundos.
-        <br/><br/>
-        Você recebe o agente <strong>pronto e configurado</strong>: é só abrir, adaptar com os dados da sua empresa e começar a usar. Sem precisar criar nada do zero.
-      </p>
-      <ul class="checklist" style="margin-bottom:20px">
-        <li>Analisa leads e prioriza os mais quentes automaticamente</li>
-        <li>Cruza dados de vendas e identifica padrões de conversão</li>
-        <li>Gera relatórios de pipeline com recomendações de ação</li>
-        <li>Pode ser adaptado para qualquer segmento de negócio</li>
-      </ul>
-      <div class="bonus-value">Valor separado: R$197 — incluso no seu acesso</div>
-    </div>
-  </div>
-</section>
-
-<!-- FOR WHO -->
-<section style="background: var(--bg2);">
-  <div class="container">
-    <p class="section-label">Para Quem é Isso</p>
-    <div class="divider"></div>
-    <h2>Esse guia foi feito para <em>você</em> se…</h2>
-
-    <div class="for-who-grid">
-      <div class="for-who-card"><span class="fw-icon">💼</span><span>Você é empreendedor e quer automatizar tarefas do seu negócio sem contratar um programador</span></div>
-      <div class="for-who-card"><span class="fw-icon">📈</span><span>Você é profissional de vendas, marketing ou gestão e quer ganhar horas na semana</span></div>
-      <div class="for-who-card"><span class="fw-icon">🎓</span><span>Você não sabe programar e quer usar IA de verdade, não só copiar prompts do ChatGPT</span></div>
-      <div class="for-who-card"><span class="fw-icon">🚀</span><span>Você quer estar na frente do mercado usando a tecnologia mais avançada de automação com IA</span></div>
-      <div class="for-who-card"><span class="fw-icon">💡</span><span>Você já experimentou ferramentas de IA mas quer ir além e criar seus próprios agentes</span></div>
-      <div class="for-who-card"><span class="fw-icon">⏱️</span><span>Você quer parar de fazer tarefas repetitivas e deixar que a IA cuide disso por você</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials">
-  <div class="container">
-    <p class="section-label">Resultados Reais</p>
-    <div class="divider"></div>
-    <h2>O que dizem quem já<br/>criou seu <em>primeiro agente</em></h2>
-
-    <div class="testi-grid">
-      <div class="testi-card">
-        <div class="stars">★★★★★</div>
-        <p class="testi-text">"Em 20 minutos eu tinha meu agente organizando os arquivos dos meus clientes. Algo que eu levava 2 horas por semana, agora acontece sozinho."</p>
-        <div class="testi-author">Marcos T. — Consultor de Negócios</div>
+    <div class="footer__top">
+      <div class="footer__brand">
+        <svg viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:140px;height:auto;" aria-label="WEBSCALE. logo">
+          <text x="0" y="30" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="28" fill="#FFFFFF" letter-spacing="-1">WEBSCALE</text>
+          <circle cx="171" cy="30" r="3" fill="#FF7F00"/>
+        </svg>
+        <p>CRM brasileiro com agentes de IA nativos para infoprodutores que querem organizar a estrutura comercial.</p>
+        <p style="margin-top:8px;font-size:.78rem;color:rgba(255,255,255,.25);">CNPJ: [00.000.000/0001-00] · [Razão Social Placeholder]</p>
       </div>
-      <div class="testi-card">
-        <div class="stars">★★★★★</div>
-        <p class="testi-text">"Nunca tinha mexido com código na vida. Segui o passo a passo e no mesmo dia meu agente já estava rodando. Incrível como é simples quando alguém te ensina direito."</p>
-        <div class="testi-author">Fernanda L. — Gestora de Marketing</div>
+      <div class="footer__col">
+        <h4>Produto</h4>
+        <a href="#funcionalidades">Funcionalidades</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#planos">Planos e preços</a>
       </div>
-      <div class="testi-card">
-        <div class="stars">★★★★★</div>
-        <p class="testi-text">"O bônus do agente comercial valeu o investimento inteiro. Ele analisa minha pipeline de vendas e me diz onde focar. Economizo pelo menos 3 horas por semana."</p>
-        <div class="testi-author">Ricardo A. — Diretor Comercial</div>
+      <div class="footer__col">
+        <h4>Empresa</h4>
+        <a href="#">Sobre nós</a>
+        <a href="#">Blog</a>
+        <a href="#">Cases</a>
+        <a href="#">Parceiros</a>
+      </div>
+      <div class="footer__col">
+        <h4>Suporte</h4>
+        <a href="https://wa.me/5500000000000">WhatsApp</a>
+        <a href="#">Central de ajuda</a>
+        <a href="#">Política de privacidade</a>
+        <a href="#">Termos de uso</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 WEBSCALE. Todos os direitos reservados.</p>
+      <div style="display:flex;gap:16px;">
+        <a href="#">Privacidade</a>
+        <a href="#">Termos</a>
+        <a href="#">LGPD</a>
       </div>
     </div>
   </div>
-</section>
-
-<!-- PRICING -->
-<section class="pricing" id="preco">
-  <div class="container">
-    <p class="section-label">Investimento</p>
-    <div class="divider" style="margin-left:auto;margin-right:auto;"></div>
-    <h2>Tudo isso por muito<br/>menos do que você imagina</h2>
-
-    <div class="price-box">
-      <p class="price-original">De R$197</p>
-      <div class="price-main"><span>R$</span>67</div>
-      <p class="price-period">pagamento único · acesso imediato</p>
-
-      <ul class="price-includes" style="list-style:none; margin-top:28px;">
-        <li><span>✓</span> Guia completo Agente do Zero (8 módulos)</li>
-        <li><span>✓</span> Acesso ao site com atualizações</li>
-        <li><span>✓</span> Bônus: Agente de Análise Comercial pronto</li>
-        <li><span>✓</span> Suporte por 30 dias</li>
-        <li><span>✓</span> Garantia de 7 dias — 100% do dinheiro de volta</li>
-      </ul>
-
-      <a href="https://chk.eduzz.com/39ZRJP67WE" class="btn-cta" style="width:100%;display:block;text-align:center;margin-top:8px;">
-        GARANTIR MEU ACESSO — R$67 →
-      </a>
-      <p class="cta-sub" style="margin-top:16px;">🔒 Compra 100% segura · Hotmart · Pix, cartão ou boleto</p>
-
-      <div class="countdown-wrap">
-        <div class="countdown-block">
-          <div class="countdown-num" id="cd-h">02</div>
-          <div class="countdown-label">horas</div>
-        </div>
-        <div class="countdown-block">
-          <div class="countdown-num" id="cd-m">47</div>
-          <div class="countdown-label">min</div>
-        </div>
-        <div class="countdown-block">
-          <div class="countdown-num" id="cd-s">00</div>
-          <div class="countdown-label">seg</div>
-        </div>
-      </div>
-      <p class="cta-sub">Esse preço expira quando o contador zerar</p>
-    </div>
-  </div>
-</section>
-
-<!-- GUARANTEE -->
-<section class="guarantee">
-  <div class="container">
-    <div class="guarantee-box">
-      <div class="guarantee-icon">🛡️</div>
-      <p class="section-label" style="text-align:center;">Risco Zero</p>
-      <h2>Garantia Incondicional<br/>de <em>7 Dias</em></h2>
-      <p>
-        Se por qualquer motivo você não ficar satisfeito, é só me mandar uma mensagem em até 7 dias após a compra — e eu devolvo 100% do seu dinheiro, sem perguntas, sem burocracia.
-        <br/><br/>
-        O risco é todo meu. Você não tem nada a perder.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section style="background: var(--bg2);">
-  <div class="container">
-    <p class="section-label">Dúvidas Frequentes</p>
-    <div class="divider" style="margin-left:auto;margin-right:auto;"></div>
-    <h2 style="text-align:center;">Perguntas e <em>Respostas</em></h2>
-
-    <div class="faq-list">
-      <details>
-        <summary>Preciso saber programar?</summary>
-        <p>Não. O guia foi criado especialmente para quem nunca programou. Você vai aprender o que precisa no processo, de forma prática e sem complicação.</p>
-      </details>
-      <details>
-        <summary>Quanto custa para usar o Claude Code?</summary>
-        <p>O Claude Code usa créditos da API da Anthropic. Uma sessão típica custa cerca de R$0,50 a R$2. Você tem controle total dos gastos e pode definir limites.</p>
-      </details>
-      <details>
-        <summary>Em quanto tempo vejo resultado?</summary>
-        <p>Com o Módulo 04, você terá seu primeiro agente rodando em menos de 20 minutos. A partir daí, é só aplicar ao seu contexto.</p>
-      </details>
-      <details>
-        <summary>O acesso é vitalício?</summary>
-        <p>Sim. Você paga uma vez e tem acesso para sempre, incluindo atualizações futuras do conteúdo.</p>
-      </details>
-      <details>
-        <summary>Como recebo o bônus do Agente de Análise Comercial?</summary>
-        <p>Logo após a compra, você recebe acesso ao material completo — incluindo o agente configurado e as instruções de uso.</p>
-      </details>
-      <details>
-        <summary>Funciona para o meu tipo de negócio?</summary>
-        <p>Sim. Os agentes são altamente adaptáveis. Temos alunos de vendas, marketing, finanças, logística, saúde e muito mais criando automações poderosas.</p>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="final-cta">
-  <div class="container">
-    <div class="badge">Última chamada</div>
-    <h2 style="max-width:720px;margin:20px auto 20px;">Não fique para trás enquanto<br/>o mercado aprende a usar <em>agentes de IA</em></h2>
-    <p style="color:#aaa;max-width:540px;margin:0 auto 40px;font-size:1.05rem;">
-      Cada dia sem automatizar é um dia perdendo tempo em tarefas que a IA poderia fazer por você. Comece agora.
-    </p>
-    <a href="https://chk.eduzz.com/39ZRJP67WE" class="btn-cta">
-      GARANTIR MEU ACESSO POR R$67 →
-    </a>
-    <p class="cta-sub" style="margin-top:16px;">🔒 Pagamento seguro · Acesso imediato · Garantia de 7 dias</p>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 Agente do Zero · Todos os direitos reservados</p>
-  <p style="margin-top:8px;">
-    <a href="#">Política de Privacidade</a> ·
-    <a href="#">Termos de Uso</a> ·
-    <a href="mailto:contato@seudominio.com.br">contato@seudominio.com.br</a>
-  </p>
-  <p style="margin-top:12px;max-width:500px;margin-left:auto;margin-right:auto;font-size:11px;">
-    Este produto é um guia digital educacional. Os resultados mencionados podem variar de acordo com o esforço e aplicação de cada aluno.
-  </p>
 </footer>
 
+
 <script>
-  // Carousel
-  (function() {
-    var current = 0;
-    var total = 3;
-    var track = document.getElementById('carouselTrack');
-    var dots = document.querySelectorAll('.carousel-dot');
-    function goTo(n) {
-      current = (n + total) % total;
-      track.style.transform = 'translateX(-' + (current * 100) + '%)';
-      dots.forEach(function(d,i){ d.classList.toggle('active', i===current); });
-    }
-    window.goTo = goTo;
-    document.getElementById('prevBtn').onclick = function(){ goTo(current-1); };
-    document.getElementById('nextBtn').onclick = function(){ goTo(current+1); };
-    setInterval(function(){ goTo(current+1); }, 4000);
-  })();
+  // ─── NAV SCROLL ──────────────────────────────────────
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
 
-  // Countdown timer — 2h47m from page load
-  (function() {
-    var total = (2 * 3600) + (47 * 60);
-    // persist in session so refresh doesn't reset
-    var key = 'adzero_cd';
-    var saved = sessionStorage.getItem(key);
-    if (saved) {
-      total = parseInt(saved, 10);
-    }
-    function tick() {
-      if (total <= 0) { total = 0; }
-      var h = Math.floor(total / 3600);
-      var m = Math.floor((total % 3600) / 60);
-      var s = total % 60;
-      document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
-      document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
-      document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
-      if (total > 0) {
-        total--;
-        sessionStorage.setItem(key, total);
+  // ─── MOBILE NAV ──────────────────────────────────────
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  const mobileClose = document.getElementById('mobileClose');
+
+  function openMobileNav() {
+    mobileNav.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileNav() {
+    mobileNav.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', openMobileNav);
+  mobileClose.addEventListener('click', closeMobileNav);
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', closeMobileNav);
+  });
+  mobileNav.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMobileNav();
+  });
+
+  // ─── REVEAL ON SCROLL ────────────────────────────────
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
       }
-    }
-    tick();
-    setInterval(tick, 1000);
-  })();
-</script>
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // ─── FAQ ACCORDION ───────────────────────────────────
+  document.querySelectorAll('.faq__question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      // Close all
+      document.querySelectorAll('.faq__question').forEach(b => {
+        b.setAttribute('aria-expanded', 'false');
+        const ans = document.getElementById(b.getAttribute('aria-controls'));
+        if (ans) ans.style.maxHeight = '0';
+      });
+      // Open clicked (if was closed)
+      if (!isOpen) {
+        btn.setAttribute('aria-expanded', 'true');
+        const answer = document.getElementById(btn.getAttribute('aria-controls'));
+        if (answer) answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ─── SMOOTH SCROLL FOR ANCHOR LINKS ─────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
 </body>
 </html>
